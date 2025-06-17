@@ -37,7 +37,7 @@ exports.updateRecetas= async(req, res)=>{
 
     const { data, error } = await supabaseAnonClient
       .from("recetas")
-      .update({ title, author, description, published_year })
+      .update({ title,ingredients,preparation,image  })
       .eq("id", id);
 
     if (error) throw error;
