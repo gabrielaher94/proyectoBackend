@@ -7,10 +7,10 @@ const supabaseAnonClient=createClient(
 
 );
 
-exports.getALLRecetas= async(req,res)=>{
+exports.getALLRecipes= async(req,res)=>{
     try{
     const{data, error}= await supabaseAnonClient
-    .from("recetas")
+    .from("recipes")
     .select("*");
     if (error) throw error;
     res.status(200).json({data});
@@ -19,24 +19,24 @@ exports.getALLRecetas= async(req,res)=>{
     }
     return res;
 };
-exports.createRecetas= async(req, res)=>{
+exports.createRecipes= async(req, res)=>{
     try{
     const{title,ingredients,preparation,image}=req.body;
     const{data, error}= await supabaseAnonClient
-    .from("recetas")
+    .from('recipes')
     .insert({title,ingredients,preparation,image});
     }catch(err){
-        res.status(err.status||500).json({error: err.message});
+       return res.status(err.status||500).json({error: err.message});
     }
     return res;
 };
-exports.updateRecetas= async(req, res)=>{
+exports.updateRecipes= async(req, res)=>{
     try {
     const { id } = req.params;
-    const { title, author, description, publication_year } = req.body;
+    const { title, ingredients, preparation,image } = req.body;
 
     const { data, error } = await supabaseAnonClient
-      .from("recetas")
+      .from("recipes")
       .update({ title,ingredients,preparation,image  })
       .eq("id", id);
 
@@ -46,11 +46,11 @@ exports.updateRecetas= async(req, res)=>{
     res.status(400).json({ error: err.message });
   }
 };
-exports.deleteRecetas= async(req, res)=>{
+exports.deleteRecipes= async(req, res)=>{
     try {
     const { id } = req.params;
     const { error } = await supabaseAnonClient
-      .from("recetas")
+      .from("recipes")
       .delete()
       .eq("id", id);
 

@@ -9,7 +9,7 @@ app.use(express.json());
 
 //Rutas
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/recetas',require('./routes/recetasRoutes'))
+app.use('/api/recipes',require('./routes/recipesRoutes'))
 
 
 const PORT = process.env.PORT || 3001;
